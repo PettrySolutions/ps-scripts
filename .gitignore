@@ -15,11 +15,13 @@ yarn-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+.env
 
 # IDE
 .idea/
 .vscode/
 *.swp
+
 
 # Test output
 src/tools/import-mapping/__tests__/mocks/output/

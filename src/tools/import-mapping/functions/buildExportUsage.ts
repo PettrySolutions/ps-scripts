@@ -40,6 +40,7 @@ const mapExportType = (exportInfo: ExportInfo): ExportEntry['exportType'] => {
  */
 const collectUsagesForExport = (
   exportName: string,
+  exportType: string,
   packageName: string,
   repoPackages: RepoPackagesOutput
 ): {
@@ -66,9 +67,19 @@ const collectUsagesForExport = (
 
         // Check if this import includes our export
         for (const value of importDetail.importedValues) {
-          const matchesName = value.name === exportName || 
-                             (exportName === 'default' && value.importType === 'default') ||
-                             (value.importType === 'namespace'); // namespace imports include everything
+          // Match by name directly
+          let matchesName = value.name === exportName;
+          
+          // For default exports: if the export is a default export, 
+          // match any default import (value.importType === 'default')
+          if (!matchesName && exportType === 'default' && value.importType === 'default') {
+            matchesName = true;
+          }
+          
+          // Namespace imports include all exports
+          if (!matchesName && value.importType === 'namespace') {
+            matchesName = true;
+          }
 
           if (matchesName) {
             if (!consumerFiles.includes(file.filePath)) {
@@ -123,6 +134,7 @@ const buildExportEntry = (
 ): ExportEntry => {
   const { repositories, packages, subpaths } = collectUsagesForExport(
     exportInfo.name,
+    exportInfo.exportType,
     packageName,
     repoPackages
   );
