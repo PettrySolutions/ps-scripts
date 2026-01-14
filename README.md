@@ -43,7 +43,14 @@ Create a JSON configuration file:
     "path/to/repo-2"
   ],
   "packages": [
-    "path/to/package-1"
+    {
+      "path": "path/to/monorepo/packages/ui",
+      "name": "@yourorg/ui"
+    },
+    {
+      "path": "path/to/monorepo/packages/utils",
+      "name": "@yourorg/utils"
+    }
   ],
   "packageNames": [
     "@yourorg/ui",
@@ -61,7 +68,7 @@ Create a JSON configuration file:
 | Option | Required | Description |
 |--------|----------|-------------|
 | `repositories` | Yes | Array of repository paths to analyze |
-| `packages` | Yes | Array of standalone package paths to analyze |
+| `packages` | Yes | Array of package configs with `path` (source directory) and `name` (published name) |
 | `packageNames` | Yes | Package names to track imports for |
 | `ignorePatterns` | No | Directories to skip (defaults: `node_modules`, `dist`, `build`, `.next`, `coverage`) |
 | `outputDir` | Yes | Directory for output JSON files |
