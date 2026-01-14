@@ -1,0 +1,12 @@
+# Don't publish these to npm
+src/
+coverage/
+*.log
+.gitignore
+.git/
+jest.config.js
+tsconfig.json
+QA_BUG_REPORT.md
+schemas/
+**/__tests__/
+**/*.test.ts

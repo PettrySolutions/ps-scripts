@@ -1,0 +1,19 @@
+{
+  "repositories": [
+    "src/tools/import-mapping/__tests__/mocks/repo-1",
+    "src/tools/import-mapping/__tests__/mocks/repo-2"
+  ],
+  "packages": [
+    { "path": "src/tools/import-mapping/__tests__/mocks/monorepo/packages/package-1", "name": "@test/ui" },
+    { "path": "src/tools/import-mapping/__tests__/mocks/monorepo/packages/pack-1", "name": "@test/utils" },
+    { "path": "src/tools/import-mapping/__tests__/mocks/monorepo/packages/pack-2", "name": "@test/core" }
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build",
+    ".next",
+    "coverage"
+  ],
+  "outputDir": "src/tools/import-mapping/__tests__/mocks/output"
+}
