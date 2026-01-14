@@ -27,12 +27,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dakotahpettry/ps-scripts.git"
+    "url": "https://github.com/PettrySolutions/ps-scripts.git"
   },
   "bugs": {
-    "url": "https://github.com/dakotahpettry/ps-scripts/issues"
+    "url": "https://github.com/PettrySolutions/ps-scripts/issues"
   },
-  "homepage": "https://github.com/dakotahpettry/ps-scripts#readme",
+  "homepage": "https://github.com/PettrySolutions/ps-scripts#readme",
   "publishConfig": {
     "access": "public"
   },
