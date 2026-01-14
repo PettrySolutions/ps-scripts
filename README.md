@@ -1,71 +1,87 @@
-# ztc-scripts
+# @pettry-solutions/scripts
 
-Modular CLI tools for various utilities
+A modular CLI toolkit for analyzing and understanding JavaScript/TypeScript codebases.
 
 ## Installation
 
 ```bash
-npm install @dakotahpettry/ztc-scripts
+npm install -g @pettry-solutions/scripts
 ```
 
-## Usage
+Or use directly with npx:
 
 ```bash
-ztc <command> [options]
+npx @pettry-solutions/scripts <command>
 ```
 
-### Available Commands
+## Available Tools
 
-- `import-mapping <configPath>` - Analyze import patterns in JavaScript/TypeScript repositories
+### Import Mapping
 
-See [import-mapping documentation](src/tools/import-mapping/README.md) for detailed usage.
+Analyze import patterns across your JavaScript/TypeScript repositories to understand which exports from your packages are actually being used.
 
-## Development
+**Use cases:**
+- Identify which exports from your packages are being consumed
+- Discover unused exports that can be safely removed
+- Understand import patterns across multiple repositories
+- Audit package usage in a monorepo
 
-### Setup
+#### Usage
 
 ```bash
-npm install
+ztc import-mapping <configPath>
 ```
 
-### Build
+#### Configuration
 
-```bash
-npm run build
+Create a JSON configuration file:
+
+```json
+{
+  "repositories": [
+    "path/to/repo-1",
+    "path/to/repo-2"
+  ],
+  "packages": [
+    "path/to/package-1"
+  ],
+  "packageNames": [
+    "@yourorg/ui",
+    "@yourorg/utils"
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build"
+  ],
+  "outputDir": "./output"
+}
 ```
 
-### Test
+| Option | Required | Description |
+|--------|----------|-------------|
+| `repositories` | Yes | Array of repository paths to analyze |
+| `packages` | Yes | Array of standalone package paths to analyze |
+| `packageNames` | Yes | Package names to track imports for |
+| `ignorePatterns` | No | Directories to skip (defaults: `node_modules`, `dist`, `build`, `.next`, `coverage`) |
+| `outputDir` | Yes | Directory for output JSON files |
 
-```bash
-npm test
+#### Output
 
-# Watch mode
-npm run test:watch
+The tool generates JSON output files containing:
+- All imported values organized by repository and file
+- Export usage statistics
+- Summary of package utilization
 
-# With coverage
-npm run test:coverage
-```
+#### Supported Import Syntaxes
 
-## Publishing to GitHub Packages
-
-1. Authenticate with GitHub:
-```bash
-npm login --registry=https://npm.pkg.github.com
-```
-
-2. Build and publish:
-```bash
-npm publish
-```
-
-## Architecture
-
-This project follows functional programming principles with modular tools:
-
-- Each tool is self-contained in `src/tools/<tool-name>/`
-- Tests are co-located with tools in `__tests__/` directories
-- All functions are pure where possible
-- Full test coverage for each module
+- Named imports: `import { Button, Input } from '@pkg/ui'`
+- Namespace imports: `import * as utils from '@pkg/utils'`
+- Default imports: `import React from 'react'`
+- Type imports: `import type { User } from '@pkg/core'`
+- Subpath imports: `import { validate } from '@pkg/utils/validators'`
+- Multi-line imports
+- Mixed imports: `import React, { useState } from 'react'`
 
 ## License
 
